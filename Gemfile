@@ -8,6 +8,7 @@ gem "quiet_assets"
 
 gem "bootstrap-sass"
 
+gem 'rails_12factor'
 
 gem "will_paginate"
 gem "will_paginate-bootstrap"
