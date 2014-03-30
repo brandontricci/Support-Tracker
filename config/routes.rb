@@ -1,8 +1,9 @@
 Quiz1Solution::Application.routes.draw do
+  devise_for :users
   resources :support_requests, except: [:show]
 
+  root  :to => "support_requests#new"
 
-  root "support_requests#new"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
