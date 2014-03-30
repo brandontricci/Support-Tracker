@@ -1,0 +1,26 @@
+<%= form_for @support_request do |f| %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <% SupportRequest::DEPARTMENTS.each do |sr| %>
+      <%= f.radio_button :department, sr, checked: sr ==  SupportRequest::DEPARTMENT_TECHNICAL %>
+      <%= f.label :department, sr.capitalize %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :message %>
+    <%= f.text_area :message, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6">
+    <h1>All Support Requests</h1>
+  </div>
+  <div class="col-md-6 col-sm-6">
+    <%= form_tag support_requests_path, method: :get do %>
+      <%= text_field_tag :search, @search_term %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Message</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @support_requests.each do |sr| %>
+    <tr>
+      <td><%= sr.name.capitalize %></td>
+      <td><%= mail_to sr.email %></td>
+      <td><%= sr.department %></td>
+      <td><%= sr.message %></td>
+      <td><%= link_to "Edit", edit_support_request_path(sr), class: "btn btn-info" %></td>
+      <td><%= link_to "Delete", sr, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"} %></td>
+
+      <td>
+        <% if sr.done? %>
+          <%= button_to "Undone", support_request_path(sr, support_request: {done: false}), class: "btn btn-primary", method: :patch %>
+        <% else %>
+          <%= button_to "Done", support_request_path(sr, support_request: {done: true}), class: "btn btn-primary", method: :patch %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>  
+    <td colspan="7" class="text-center">
+      <%= will_paginate @support_requests, search: @search_term, renderer: BootstrapPagination::Rails %>
+    </td>
+  </tr>
+</table>
